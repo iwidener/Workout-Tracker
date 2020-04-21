@@ -42,3 +42,5 @@ const API = {
     return json;
   },
 };
+
+export default API;
