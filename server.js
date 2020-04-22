@@ -5,9 +5,10 @@ const path = require("path");
 
 const PORT = process.env.PORT || 3000;
 
+const app = express();
+
 const Workout = require("./models/Workout.js");
 
-const app = express();
 
 app.use(logger("dev"));
 
@@ -25,6 +26,8 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout",
     .catch(err => {
         console.log("DB Connection error")
     });
+
+app.use(require("./routes/api.js"));
 
 app.get("/", function (req, res) {
     Workout.find({}, function (err, workouts) {
