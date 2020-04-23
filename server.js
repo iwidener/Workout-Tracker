@@ -9,7 +9,6 @@ const app = express();
 
 const Workout = require("./models/Workout.js");
 
-
 app.use(logger("dev"));
 
 app.use(express.urlencoded({ extended: true }));
@@ -28,16 +27,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout",
     });
 
 app.use(require("./routes/api.js"));
-
-app.get("/", function (req, res) {
-    Workout.find({}, function (err, workouts) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.sendFile(path.join(__dirname, "./public/index.html"));
-        }
-    });
-});
+app.use(require("./routes/html-routes.js"));
 
 app.listen(PORT, () => {
     console.log("App running on: http://localhost:" + PORT);
