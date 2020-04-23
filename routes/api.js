@@ -57,17 +57,7 @@ router.post("/stats", ({ body }, res) => {
         });
 });
 
-router.get("/exercise", ({ body }, res) => {
-    Workout.create(body)
-        .then(dbWorkout => {
-            res.json(dbWorkout);
-        })
-        .catch(err => {
-            res.status(400).json(err);
-        });
-});
-
-router.get("/exercise?", ({ body }, res) => {
+router.get("/api/exercise", ({ body }, res) => {
     Workout.create(body)
         .then(dbWorkout => {
             res.json(dbWorkout);
