@@ -1,8 +1,9 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-//const path = require("path");
 const router = require("./routes/html-routes.js");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
@@ -17,7 +18,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout",
+mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI,
     {
         useNewUrlParser: true,
         useFindAndModify: false
