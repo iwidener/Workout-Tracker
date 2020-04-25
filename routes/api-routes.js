@@ -13,7 +13,7 @@ router.get("/api/workouts", ({ body }, res) => {
         });
 });
 
-router.get("/api/workouts", ({ body }, res) => {
+router.put("/api/workouts", ({ body }, res) => {
     Workout.create(body)
         .then(dbWorkout => {
             res.json(dbWorkout);
@@ -34,29 +34,45 @@ router.post("/api/workouts", ({ body }, res) => {
         });
 });
 
-// router.get("/api/workouts/" + id, function(req, res, next) {
-//     res.render("index", {output: req.params.id});
-// });
-
-
-router.put("/api/workouts/" + id, ({ params }, res) => {
-    db.workout.update(
-        {
-            exercises: [],
-            _id: "",
-            _v: 0
-        },
-        (error, edited) => {
-            if (error) {
-                console.log(error);
-                res.send(error);
-            } else {
-                console.log(edited);
-                res.send(edited);
-            }
-        }
-    );
+router.get("/api/workouts" + id, ({ body }, res) => {
+    Workout.create(body)
+        .then(dbWorkout => {
+            res.json(dbWorkout);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
 });
+
+
+router.put("/api/workouts" + id, ({ body }, res) => {
+    Workout.create(body)
+        .then(dbWorkout => {
+            res.json(dbWorkout);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+});
+
+// router.put("/api/workouts/" + id, ({ params }, res) => {
+//     db.workout.create(
+//         {
+//             exercises: [],
+//             _id: "",
+//             _v: 0
+//         },
+//         (error, edited) => {
+//             if (error) {
+//                 console.log(error);
+//                 res.send(error);
+//             } else {
+//                 console.log(edited);
+//                 res.send(edited);
+//             }
+//         }
+//     );
+// });
 
 router.post("/api/stats", ({ body }, res) => {
     Workout.create(body)
@@ -78,7 +94,17 @@ router.get("/api/exercise", ({ body }, res) => {
         });
 });
 
-router.get("/api/workouts/range", ({ body }, res) => {
+router.post("/api/exercise", ({ body }, res) => {
+    Workout.create(body)
+        .then(dbWorkout => {
+            res.json(dbWorkout);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+});
+
+router.put("/api/exercise", ({ body }, res) => {
     Workout.create(body)
         .then(dbWorkout => {
             res.json(dbWorkout);
@@ -128,6 +154,16 @@ router.get("/api/exercise?id=${lastWorkout._id}", ({ body }, res) => {
         });
 });
 
+router.get("/api/workouts/range", ({ body }, res) => {
+    Workout.create(body)
+        .then(dbWorkout => {
+            res.json(dbWorkout);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+});
+
 router.post("/api/workouts/range", ({ body }, res) => {
     Workout.create(body)
         .then(dbWorkout => {
@@ -149,5 +185,5 @@ router.get("/api/workouts/range", ({ body }, res) => {
         });
 });
 
-
 module.exports = router;
+
