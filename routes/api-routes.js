@@ -3,7 +3,7 @@ const Workout = require("../models/Workout.js");
 const id = [];
 
 router.get("/api/workouts", ({ body }, res) => {
-    Workout.find({})
+    Workout.find({body})
         .sort({ date: -1 })
         .then(dbWorkout => {
             res.json(dbWorkout);
@@ -98,15 +98,25 @@ router.get("/api/?id=", ({ body }, res) => {
         });
 });
 
-// router.get("/?id=5ea10edb9627992588eb517c", ({ body }, res) => {
-//     Workout.create(body)
-//         .then(dbWorkout => {
-//             res.json(dbWorkout);
-//         })
-//         .catch(err => {
-//             res.status(400).json(err);
-//         });
-// });
+router.post("/api/?id=", ({ body }, res) => {
+    Workout.create(body)
+        .then(dbWorkout => {
+            res.json(dbWorkout);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+});
+
+router.put("/api/?id=", ({ body }, res) => {
+    Workout.create(body)
+        .then(dbWorkout => {
+            res.json(dbWorkout);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+});
 
 router.get("/api/exercise?id=${lastWorkout._id}", ({ body }, res) => {
     Workout.create(body)

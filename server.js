@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI,
         console.log("DB Connection error")
     });
 
-app.use(require("./routes/api.js"));
+app.use(require("./routes/api-routes.js"));
 router(app);
 
 app.listen(PORT, () => {
