@@ -3,7 +3,8 @@ const Workout = require("../models/Workout.js");
 const id = [];
 
 router.get("/api/workouts", ({ body }, res) => {
-    Workout.find({body})
+    console.log("api works")
+    Workout.find({})
         .sort({ date: -1 })
         .then(dbWorkout => {
             res.json(dbWorkout);
@@ -13,8 +14,8 @@ router.get("/api/workouts", ({ body }, res) => {
         });
 });
 
-router.put("/api/workouts", ({ body }, res) => {
-    Workout.create(body)
+router.put("/api/workouts/:id", ({ body, params }, res) => {
+    Workout.findByIdAndUpdate(params.id, { $push: { exercises: body } })
         .then(dbWorkout => {
             res.json(dbWorkout);
         })
@@ -25,7 +26,10 @@ router.put("/api/workouts", ({ body }, res) => {
 
 
 router.post("/api/workouts", ({ body }, res) => {
-    Workout.create(body)
+    Workout.create({
+        ...body,
+        day: Date.now()
+    })
         .then(dbWorkout => {
             res.json(dbWorkout);
         })
@@ -44,7 +48,6 @@ router.get("/api/workouts" + id, ({ body }, res) => {
         });
 });
 
-
 router.put("/api/workouts" + id, ({ body }, res) => {
     Workout.create(body)
         .then(dbWorkout => {
@@ -54,25 +57,6 @@ router.put("/api/workouts" + id, ({ body }, res) => {
             res.status(400).json(err);
         });
 });
-
-// router.put("/api/workouts/" + id, ({ params }, res) => {
-//     db.workout.create(
-//         {
-//             exercises: [],
-//             _id: "",
-//             _v: 0
-//         },
-//         (error, edited) => {
-//             if (error) {
-//                 console.log(error);
-//                 res.send(error);
-//             } else {
-//                 console.log(edited);
-//                 res.send(edited);
-//             }
-//         }
-//     );
-// });
 
 router.post("/api/stats", ({ body }, res) => {
     Workout.create(body)
@@ -154,33 +138,17 @@ router.get("/api/exercise?id=${lastWorkout._id}", ({ body }, res) => {
         });
 });
 
-router.get("/api/workouts/range", ({ body }, res) => {
-    Workout.create(body)
-        .then(dbWorkout => {
-            res.json(dbWorkout);
-        })
-        .catch(err => {
-            res.status(400).json(err);
-        });
-});
-
-router.post("/api/workouts/range", ({ body }, res) => {
-    Workout.create(body)
-        .then(dbWorkout => {
-            res.json(dbWorkout);
-        })
-        .catch(err => {
-            res.status(400).json(err);
-        });
-});
 
 router.get("/api/workouts/range", ({ body }, res) => {
     Workout.find({})
-        .sort({ date: -1 })
+        .sort({ day: -1 })
+        .limit(7)
         .then(dbWorkout => {
+            console.log(dbWorkout);
             res.json(dbWorkout);
         })
         .catch(err => {
+            console.log(err);
             res.status(400).json(err)
         });
 });
